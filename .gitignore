@@ -336,3 +336,12 @@ TSWLatexianTemp*
 .ipynb_checkpoints/
 __pycache__/
 dist/
+
+
+content/exercises/AGENTS.MD
+.history
+tmp
+
+.gitignore
+content/exercises/ex01/Ex 1.pdf
+content/exercises/ex01/TRANSCRIPTION.md

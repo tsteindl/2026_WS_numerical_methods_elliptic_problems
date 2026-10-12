@@ -1,208 +1,237 @@
-\documentclass[11pt,a4paper]{article}
+﻿\documentclass[11pt,a4paper]{article}
 \newcommand{\sheetnumber}{1}
-\newcommand{\submissionauthor}{} % Enter your name here if desired.
+\newcommand{\submissionauthor}{Tobias Steindl}
 \input{../latex/common.tex}
+\usepackage{graphicx}
 \begin{document}
+\begingroup
+\setlength{\parskip}{0pt}
 \submissionheader
+\endgroup
+\enlargethispage{\baselineskip}
 
-\section*{Exercise 1: Vector identities and integration by parts}
-Let $\Omega\subset\R^d$ be bounded with piecewise smooth boundary,
-$\boldsymbol b\in C^1(\overline\Omega;\R^d)$ and $u,v\in C^2(\overline\Omega)$.
-Write $\boldsymbol n$ for the outward unit normal and
-$\partial_n u=\nabla u\cdot\boldsymbol n$.
-
-\textbf{(a)} By the product rule,
-\begin{align*}
-\Div(u\boldsymbol b)
-&=\sum_{i=1}^d\partial_i(ub_i)
-=\sum_{i=1}^d\bigl((\partial_i u)b_i+u\partial_i b_i\bigr)\\
-&=\boldsymbol b\cdot\nabla u+u\Div\boldsymbol b.
-\end{align*}
-\textbf{(b)} Applying the divergence theorem and then (a) gives
+\section*{Exercise 1 (Vector identities, integration-by-parts)}
+\textbf{(a)}
 \[
-\int_{\partial\Omega}u\boldsymbol b\cdot\boldsymbol n\ds
-=\int_\Omega\Div(u\boldsymbol b)\dx
-=\int_\Omega\boldsymbol b\cdot\nabla u\dx
-+\int_\Omega u\Div\boldsymbol b\dx.
+\Div(\vec b u)=\sum_{i=1}^d\partial_i(ub_i)
+\overset{\mathrm{PR}}{=}\sum_{i=1}^d\bigl((\partial_i u)b_i+u\partial_i b_i\bigr)
+=\vec b\cdot\nabla u+u\Div\vec b.
 \]
-Rearranging yields
+\textbf{(b)} Gau\ss:
 \[
-\int_\Omega\boldsymbol b\cdot\nabla u\dx
-=-\int_\Omega u\Div\boldsymbol b\dx
-+\int_{\partial\Omega}u\boldsymbol b\cdot\boldsymbol n\ds.
+\int_{\partial\Omega}u\vec b\cdot\vec n\ds
+=\int_\Omega\Div(u\vec b)\dx
+\overset{(a)}{=}\int_\Omega\vec b\cdot\nabla u\dx+\int_\Omega u\Div\vec b\dx.
 \]
-\textbf{(c)} Choosing $\boldsymbol b=\nabla v$ in (b), we obtain
+\textbf{(c)} In (b) choose $\vec b=\nabla v$, then
 \[
 \int_\Omega\nabla u\cdot\nabla v\dx
-=-\int_\Omega u\Delta v\dx+\int_{\partial\Omega}u\partial_n v\ds.
+=-\int_\Omega u\underbrace{\Div(\nabla v)}_{\Delta v}\dx
++\int_{\partial\Omega}u\underbrace{\nabla v\cdot\vec n}_{\partial_n v}\ds.
 \]
-Exchanging $u$ and $v$ and using symmetry of the inner product gives
+Exchange $u,v$ and use symmetry of inner product:
 \[
 \int_\Omega\nabla u\cdot\nabla v\dx
 =-\int_\Omega\Delta u\,v\dx+\int_{\partial\Omega}\partial_n u\,v\ds.
 \]
 
-\section*{Exercise 2: Fundamental lemma, first version}
-\textbf{Continuous case.}
-Let $\Omega\subset\R^d$ be open and $f\in C(\overline\Omega)$.
-If $f\equiv0$, all the stated integrals vanish. Conversely, suppose
-$\int_\omega f\dx=0$ for every bounded measurable $\omega\subset\Omega$.
-If $f(x_0)\ne0$ at some $x_0\in\Omega$, we may assume $f(x_0)>0$
-by replacing $f$ by $-f$. By continuity and openness, there are $r>0$
-and $\varepsilon>0$ such that $\overline B_r(x_0)\subset\Omega$ and
-$f(x)\ge\varepsilon$ on this ball. Hence
-\[
-0=\int_{\overline B_r(x_0)}f\dx
-\ge\varepsilon\,|\overline B_r(x_0)|>0,
-\]
-a contradiction. Thus $f\equiv0$ in $\Omega$.
+\section*{Exercise 2 (Fundamental lemma 1)}
+\textbf{1. $\Leftarrow$} Clear.
 
-\textbf{$L^1$ case.}
-If $f=0$ almost everywhere, the integrals vanish. For the converse, let
-$f\in L^1(\Omega)$ satisfy the integral condition. For $n,R\in\mathbb N$
-define the bounded measurable sets
+\textbf{$\Rightarrow$} Assume for the sake of contradiction there exists
+$x_0\in\Omega$ with $f(x_0)\ne0$. Without loss $f(x_0)>0$.
+Due to the continuity of $f$, there exists $\delta>0$ such that $f(x)>0$
+for $x\in B_\delta(x_0)\subset\Omega$ with $\delta$ sufficiently small
+($\Omega$ is open!). Now choose $r<\delta$ such that
+$\overline B_r(x_0)\subset\Omega$. It holds:
 \[
-E_{n,R}^{+}=\{x\in\Omega\cap B_R(0):f(x)\ge1/n\},\qquad
-E_{n,R}^{-}=\{x\in\Omega\cap B_R(0):f(x)\le-1/n\}.
+0=\int_{\overline B_r(x_0)}f(x)\dx
+\ge\int_{B_\delta(x_0)}\underbrace{f(x)}_{>0}\dx>0.\qquad\bot
 \]
-Then
-\[
-0=\int_{E_{n,R}^{+}}f\dx\ge\frac1n|E_{n,R}^{+}|,
-\qquad
-0=\int_{E_{n,R}^{-}}f\dx\le-\frac1n|E_{n,R}^{-}|.
-\]
-Consequently both sets have measure zero. Since
-\[
-\{x\in\Omega:f(x)\ne0\}
-=\bigcup_{n,R\in\mathbb N}(E_{n,R}^{+}\cup E_{n,R}^{-}),
-\]
-countable subadditivity implies $f=0$ almost everywhere in $\Omega$.
+\textbf{2. $\Leftarrow$}
+$f=0$ a.e. $\Rightarrow\int_\omega f\dx=0$ (clear).
 
-\section*{Exercise 3: Fundamental lemma, second version}
-\textbf{Continuous case.}
-Let $\Omega$ be bounded and $f\in C(\overline\Omega)$.
-The implication from $f\equiv0$ to $\int_\Omega fv\dx=0$ is immediate.
-Conversely, suppose the integral vanishes for all
-$v\in C(\overline\Omega)$ with $v|_{\partial\Omega}=0$.
-If $f(x_0)\ne0$ for some $x_0\in\Omega$, assume without loss of
-generality that $f(x_0)>0$. Choose $r>0$ such that
-$\overline B_r(x_0)\subset\Omega$ and $f>0$ on this closed ball. Set
+\textbf{$\Rightarrow$} We show that $\int_N f(x)\dx=0$ for all null sets $N$.
+For this choose a ``subset on which $f$ is strictly positive'':
 \[
-v(x)=\max\left\{1-\frac{|x-x_0|}{r},\,0\right\}.
+E_{n,R}=\left\{x\in\Omega\cap B_R(0):f(x)\ge\frac1n\right\}.
 \]
-This function is continuous, nonnegative, satisfies $v(x_0)=1$, and
-vanishes outside $B_r(x_0)$, so it is an admissible test function.
-The product $fv$ is strictly positive on $B_r(x_0)$ and zero outside.
-Therefore
+Clearly for $x\in E_{n,R}$: $f(x)\ge\frac1n>0$, for all $n,R$ by definition.
+Also $E_{n,R}$ measurable (clear) and bounded due to
+``$\cap B_R(0)$'' for $R<\infty$. Now,
 \[
-\int_\Omega fv\dx=\int_{B_r(x_0)}fv\dx>0,
+0\overset{\mathrm{Ass.}}{=}\int_{E_{n,R}}\underbrace{f(x)}_{\ge1/n}\dx
+\ge\underbrace{\frac1n}_{>0}\underbrace{|E_{n,R}|}_{\ge0}
+\quad\Rightarrow\quad |E_{n,R}|=0.
 \]
-contradicting the assumption. Thus $f(x)=0$ for every $x\in\Omega$.
+Analogously, for
+$E'_{n,R}=\{x\in\Omega\cap B_R(0):f(x)\le-\frac1n\}$
+it follows that $f(x)<\frac1n<0$, $\mu(E'_{n,R})=0$. Now,
+\[
+A_{n,R}=E_{n,R}\cup E'_{n,R}
+\]
+and
+\[
+B=\bigcup_{n,R\in\mathbb N}A_{n,R},\qquad\mu(B)=0\quad\text{(countable union)}.
+\]
+Equivalently, $f=0$ a.e.
 
-\textbf{$L^2$ case.}
-Let $f\in L^2(\Omega)$ and assume
-$\int_\Omega f\varphi\dx=0$ for every $\varphi\in C_c^\infty(\Omega)$.
-For an arbitrary $v\in L^2(\Omega)$, density provides a sequence
-$\varphi_n\in C_c^\infty(\Omega)$ with
-$\|v-\varphi_n\|_{L^2(\Omega)}\to0$. Cauchy--Schwarz gives
+\newpage
+\section*{Exercise 3 (Fundamental lemma, 2nd version)}
+\textbf{$\Leftarrow$}
 \[
-\left|\int_\Omega fv\dx\right|
-=\left|\int_\Omega f(v-\varphi_n)\dx\right|
-\le\|f\|_{L^2(\Omega)}\|v-\varphi_n\|_{L^2(\Omega)}\longrightarrow0.
+f(x)=0\Rightarrow f(x)v(x)=0\quad\forall v\in C(\overline\Omega)
+\Rightarrow 0=\int_\Omega fv\dx\quad\forall v.
 \]
-Thus the integral vanishes for every $v\in L^2(\Omega)$.
-In particular, choosing $v=f$ yields
+\textbf{$\Rightarrow$} Suppose $f(x_0)\ne0$ for $x_0\in\Omega$.
+W.l.o.g. $f(x_0)>0$. Continuity:
+$\overline B_r(x_0)\subset\Omega$ with $f(x)>0$ for all
+$x\in\overline B_r(x_0)$. Define
 \[
-0=\int_\Omega f^2\dx=\|f\|_{L^2(\Omega)}^2,
+v(x)=\max\left\{1-\frac{|x-x_0|}{r},0\right\},\qquad x\in\overline\Omega.
 \]
-so $f=0$ almost everywhere. Conversely, $f=0$ almost everywhere
-implies the integral condition for all $L^2$ test functions, and hence
-for all $C_c^\infty$ test functions as well.
+Then $v\ge0$, $v(x_0)=1$, $v(x)=0$ outside $B_r(x_0)$ and $v$ is continuous.
+In particular $v|_{\partial\Omega}=0$, so $v$ is admissible. Furthermore
+\[
+f(x)v(x)>0\quad\text{on }B_r(x_0),\qquad
+f(x)v(x)=0\quad\text{outside }B_r(x_0).
+\]
+Thus,
+\[
+\int_\Omega f(x)v(x)\dx=\int_{B_r(x_0)}\underbrace{f(x)v(x)}_{>0}\dx>0.\qquad\bot
+\]
+\textbf{$L^2$ case: $\Leftarrow$}
+Clearly $f=0$ a.e. $\Rightarrow\int_\Omega fv\dx=0$ for all $v\in L^2(\Omega)$.
+As $\Omega$ is bounded, if $f\in C_c^\infty(\Omega)$ then $f\in L^2(\Omega)$.
+Thus $C_c^\infty(\Omega)\subset L^2(\Omega)$ and thus the leftmost
+implication ``$\Leftarrow$'' holds.
 
-\section*{Exercise 4: Euler--Lagrange equation}
-Let $\Omega$ be bounded with Lipschitz boundary,
-$a\in L^\infty(\Omega)$ with $a\ge a_0>0$ almost everywhere, and
-$f\in L^2(\Omega)$. We minimize
+\textbf{1. $\Rightarrow$} Suppose $\int_\Omega f\varphi\dx=0$
+for all $\varphi\in C_c^\infty(\Omega)$.
+Let $v\in L^2(\Omega)$ arbitrary but fixed. We show $\int_\Omega fv\dx=0$.
+Due to density of $C_c^\infty(\Omega)$ in $L^2(\Omega)$ there exists a
+sequence $(\varphi_n)\subset C_c^\infty$:
 \[
-J(u)=\frac12\int_\Omega a|\nabla u|^2\dx-\int_\Omega fu\dx
-\qquad\text{over }u\in H_0^1(\Omega).
+\|\varphi_n-v\|_{L^2(\Omega)}\to0.
 \]
-\textbf{(a)} For $u,v\in H_0^1(\Omega)$, expansion of the square yields
+Due to C--S-inequality:
 \[
-J(u+tv)-J(u)
-=t\left(\int_\Omega a\nabla u\cdot\nabla v\dx-\int_\Omega fv\dx\right)
-+\frac{t^2}{2}\int_\Omega a|\nabla v|^2\dx.
+|\langle f,v-\varphi_n\rangle|_{L^2}
+\le\|f\|_{L^2}\underbrace{\|v-\varphi_n\|_{L^2}}_{\to0}\to0.
 \]
-Since $\left|\int_\Omega a|\nabla v|^2\dx\right|
-\le\|a\|_{L^\infty(\Omega)}\|\nabla v\|_{L^2(\Omega)}^2<\infty$,
-the first variation is
+Due to assumption: $\langle f,\varphi_n\rangle=0$ for all $n$,
+as $\varphi_n\in C_c^\infty$.
+\begin{align*}
+\langle f,v\rangle
+&=\langle f,v-\varphi_n+\varphi_n\rangle\\
+&=\underbrace{\langle f,v-\varphi_n\rangle}_{\le |\cdot|}
++\underbrace{\langle f,\varphi_n\rangle}_{0}
+=\langle f,v-\varphi_n\rangle\to0.
+\end{align*}
+Hence, it must also hold that $\langle f,v\rangle=0$.
+
+\textbf{2. $\Rightarrow$} Suppose $\int_\Omega fv\dx=0$ for all $v\in L^2(\Omega)$.
+As $f\in L^2$, in particular $v=f$:
 \[
-\delta J(u)[v]=\lim_{t\to0}\frac{J(u+tv)-J(u)}t
-=\int_\Omega a\nabla u\cdot\nabla v\dx-\int_\Omega fv\dx.
+0=\int_\Omega f^2\dx=\|f\|_{L^2}^2\quad\Rightarrow\quad f=0.
 \]
-At a minimizer it must vanish in every admissible direction. The
-variational problem is therefore: find $u\in H_0^1(\Omega)$ such that
+
+\newpage
+\section*{Exercise 4}
+\textbf{(a)} We compute the first variation
+\begin{align*}
+\delta J(u)[v]
+&=\lim_{t\to0}\frac1t\bigl[J(u+tv)-J(u)\bigr]\\
+&=\lim_{t\to0}\frac1{2t}\Bigl[
+\int_\Omega a|\nabla(u+tv)|^2\dx
+-\int_\Omega fu\dx-t\int_\Omega fv\dx\\
+&\hspace{38mm}-\int_\Omega a|\nabla u|^2\dx+\int_\Omega fu\dx\Bigr].
+\end{align*}
+\[
+\nabla(u+tv)=\nabla u+t\nabla v,\qquad
+|\nabla u+t\nabla v|^2
+=|\nabla u|^2+2t\nabla u\cdot\nabla v+t^2|\nabla v|^2.
+\]
+\begin{align*}
+\delta J(u)[v]
+&=\lim_{t\to0}\frac1{2t}\Bigl[
+\int_\Omega a|\nabla u|^2\dx+2t\int_\Omega a\nabla u\cdot\nabla v\dx
++t^2\int_\Omega a|\nabla v|^2\dx\\
+&\hspace{38mm}-t\int_\Omega fv\dx-\int_\Omega a|\nabla u|^2\dx\Bigr]\\
+&=\int_\Omega a\nabla u\cdot\nabla v\dx-\int_\Omega fv\dx
++\underbrace{\lim_{t\to0}t\int_\Omega a|\nabla v|^2\dx}_{0}.
+\end{align*}
+\[
+\int_\Omega a|\nabla v|^2\dx
+\le\|a\|_{L^\infty(\Omega)}\|\nabla v\|_{L^2}^2,
+\qquad\text{because we can choose }v\in H_0^1(\Omega).
+\]
+Setting the first variation to zero we obtain:
 \[
 \int_\Omega a\nabla u\cdot\nabla v\dx=\int_\Omega fv\dx
-\qquad\text{for every }v\in H_0^1(\Omega).
+\qquad\forall v\in H_0^1.
 \]
-For comparison, the minimal surface problem has first-order condition
+Comparison to min surface:
 \[
-\int_\Omega\frac{\nabla u\cdot\nabla v}{\sqrt{1+|\nabla u|^2}}\dx=0
-\qquad\text{for every }v\in H_0^1(\Omega).
+\int_\Omega\frac1{\sqrt{1+|\nabla u|^2}}\nabla u\cdot\nabla v\dx=0,
+\qquad\forall v:\ v|_{\partial\Omega}=0.
 \]
-Here the left-hand side is bilinear in $u$ and $v$, whereas the minimal
-surface equation is nonlinear in $u$. In addition, the present problem
-has the forcing term $\int_\Omega fv\dx$.
+Here, we are linear in $\nabla u$, $\nabla v$: $a\nabla u\cdot\nabla v$.
+MS is non-linear: $\frac1{\sqrt{1+|\nabla u|^2}}\nabla u\cdot\nabla v$.
+However, we have a RHS $\int_\Omega fv\dx$.
 
-\textbf{(b)} Assume in addition $a\in C^1(\Omega)$,
-$f\in C(\Omega)$, and $u\in C^2(\Omega)$. Restricting to
-$v\in C_c^\infty(\Omega)\subset H_0^1(\Omega)$, integration by parts gives
+\textbf{(b)} Using (a) from Ex 1 and restricting to
+$v\in C_c^\infty\subset H_0^1$:
 \[
-\int_\Omega fv\dx=\int_\Omega a\nabla u\cdot\nabla v\dx
-=-\int_\Omega\Div(a\nabla u)\,v\dx.
+\Div\bigl((a\nabla u)v\bigr)
+=(a\nabla u)\cdot\nabla v+v\Div(a\nabla u),\qquad\forall v\in C_c^\infty.
 \]
-There is no boundary contribution because $v$ has compact support in
-$\Omega$. Hence
 \[
-\int_\Omega\bigl(f+\Div(a\nabla u)\bigr)v\dx=0
-\qquad\text{for every }v\in C_c^\infty(\Omega).
+\int_\Omega\Div\bigl((a\nabla u)v\bigr)\dx
+=\underbrace{\int_\Omega a\nabla u\cdot\nabla v\dx}_{\int_\Omega fv\dx\ \text{(Teil a)}}
++\int_\Omega v\Div(a\nabla u)\dx.
 \]
-The fundamental lemma implies
+Gau\ss:
 \[
--\Div(a\nabla u)=f\quad\text{in }\Omega,
-\qquad u=0\quad\text{on }\partial\Omega.
+\int_{\partial\Omega}\bigl((a\nabla u)v\bigr)\cdot\vec n\ds=0
+\qquad\text{($v=0$ due to $v\in H_0^1$)}.
 \]
-The boundary condition follows from the admissible space, in the trace
-sense (and pointwise whenever $u$ extends continuously to the boundary).
+\begin{align*}
+0&=\int_\Omega fv\dx+\int_\Omega v\Div(a\nabla u)\dx\\
+&=\int_\Omega v\bigl(f+\Div(a\nabla u)\bigr)\dx
+\qquad\forall v\in C_c^\infty.
+\end{align*}
+By 3 we obtain:
+\[
+f+\Div(a\nabla u)=0\quad\Leftrightarrow\quad-\Div(a\nabla u)=f
+\quad\text{in }\Omega,
+\]
+and boundary condition
+\[
+u=0\quad\text{on }\partial\Omega,
+\]
+from the definition of the minimization problem.
 
-\section*{Exercise 5: Homogenizing Dirichlet data}
-Let $g=u_g|_{\partial\Omega}$ for $u_g\in C^2(\overline\Omega)$,
-and let $u\in C^2(\Omega)\cap C(\overline\Omega)$ solve
+\section*{Exercise 5}
+Let $u\in C^2(\Omega)\cap C(\overline\Omega)$ be a classical solution of
 \[
 -\Delta u=0\quad\text{in }\Omega,\qquad u=g\quad\text{on }\partial\Omega.
 \]
-Choose $w=u-u_g$. Then
+Choose $w=u-u_g$, then it is admissible:
 \[
--\Delta w=-\Delta u+\Delta u_g=\Delta u_g\quad\text{in }\Omega,
+-\Delta w=\underbrace{-\Delta u}_{0}+\Delta u_g=\Delta u_g=f
+\quad\text{in }\Omega.
 \]
-and $w|_{\partial\Omega}=g-g=0$. Thus $u=u_g+w$, with
 \[
--\Delta w=f\quad\text{in }\Omega,\qquad
-w=0\quad\text{on }\partial\Omega,\qquad f=\Delta u_g.
+w=\underbrace{u}_{g}-\underbrace{u_g}_{g}=0.
 \]
-The right-hand side depends only on the chosen extension $u_g$.
+Furthermore,
+\[
+u=u_g+w=u_g+u-u_g=u.
+\]
 
-\section*{Exercise 7: Local NGSolve installation}
-The local NGSolve installation and C++ extension test were completed.
-The recorded notebook run compiled \texttt{mymodule.cpp} using
-\texttt{CompilePythonModule} and passed the following checks:
-\begin{verbatim}
-assert m.answer() == 42
-mesh = Mesh(unit_square.GenerateMesh(maxh=0.2))
-fes = H1(mesh, order=2)
-assert m.ndof(fes) == fes.ndof
-\end{verbatim}
-The final output was \texttt{C++ extension test passed.}
-
+\section*{Exercise 7}
+\begin{center}
+\includegraphics[page=12,trim=72 250 235 204,clip,width=0.65\textwidth]{Ex 1.pdf}
+\end{center}
 \end{document}

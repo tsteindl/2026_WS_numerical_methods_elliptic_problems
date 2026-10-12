@@ -1,0 +1,28 @@
+% Shared preamble for exercise submissions. Load after \documentclass.
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\usepackage[a4paper,margin=25mm]{geometry}
+\usepackage{amsmath,amssymb}
+\usepackage{fancyhdr}
+\usepackage{hyperref}
+\hypersetup{hidelinks}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0.5em}
+\setlength{\headheight}{14pt}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{Numerical Methods for Elliptic Problems}
+\fancyhead[R]{Sheet \sheetnumber}
+\fancyfoot[C]{\thepage}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\dx}{\,\mathrm{d}x}
+\newcommand{\ds}{\,\mathrm{d}s}
+\newcommand{\Div}{\operatorname{div}}
+\newcommand{\submissionheader}{%
+  \begin{center}
+    {\Large\bfseries Numerical Methods for Elliptic Problems\par}
+    {\large Exercise Sheet \sheetnumber\par}
+    Johannes Kepler University Linz --- Winter Semester 2026/27\par
+    \ifx\submissionauthor\empty\else\submissionauthor\par\fi
+  \end{center}\medskip}

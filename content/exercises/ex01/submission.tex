@@ -41,17 +41,17 @@ Exchange $u,v$ and use symmetry of inner product:
 \textbf{$\Rightarrow$} Assume for the sake of contradiction there exists
 $x_0\in\Omega$ with $f(x_0)\ne0$. Without loss $f(x_0)>0$.
 Due to the continuity of $f$, there exists $\delta>0$ such that $f(x)>0$
-for $x\in B_\delta(x_0)\subset\Omega$ with $\delta$ sufficiently small
-($\Omega$ is open!). Now choose $r<\delta$ such that
+for $x\in B_\delta(x_0)\subset\Omega$ with $\delta$ sufficiently small.
+Now choose $r<\delta$ such that
 $\overline B_r(x_0)\subset\Omega$. It holds:
 \[
-0=\int_{\overline B_r(x_0)}f(x)\dx
-\ge\int_{B_\delta(x_0)}\underbrace{f(x)}_{>0}\dx>0.\qquad\bot
+0=\int_{B_\delta(x_0)}f(x)\dx
+\ge\int_{\overline B_r(x_0)}\underbrace{f(x)}_{>0}\dx>0.\qquad\bot
 \]
 \textbf{2. $\Leftarrow$}
 $f=0$ a.e. $\Rightarrow\int_\omega f\dx=0$ (clear).
 
-\textbf{$\Rightarrow$} We show that $\int_N f(x)\dx=0$ for all null sets $N$.
+\textbf{$\Rightarrow$} We show that the set $B=\{x\in\Omega:f(x)\ne0\}$ has measure zero.
 For this choose a ``subset on which $f$ is strictly positive'':
 \[
 E_{n,R}=\left\{x\in\Omega\cap B_R(0):f(x)\ge\frac1n\right\}.
@@ -66,17 +66,18 @@ Also $E_{n,R}$ measurable (clear) and bounded due to
 \]
 Analogously, for
 $E'_{n,R}=\{x\in\Omega\cap B_R(0):f(x)\le-\frac1n\}$
-it follows that $f(x)<\frac1n<0$, $\mu(E'_{n,R})=0$. Now,
+it follows that $f(x)<\frac{-1}{n}<0$, $\mu(E'_{n,R})=0$. Now,
 \[
 A_{n,R}=E_{n,R}\cup E'_{n,R}
 \]
 and
 \[
-B=\bigcup_{n,R\in\mathbb N}A_{n,R},\qquad\mu(B)=0\quad\text{(countable union)}.
+B\subset\bigcup_{n,R\in\mathbb N}A_{n,R},\qquad
+\mu\left(\bigcup_{n,R\in\mathbb N}A_{n,R}\right)=0
+\quad\Rightarrow\quad\mu(B)=0.
 \]
 Equivalently, $f=0$ a.e.
 
-\newpage
 \section*{Exercise 3 (Fundamental lemma, 2nd version)}
 \textbf{$\Leftarrow$}
 \[
@@ -144,7 +145,7 @@ As $f\in L^2$, in particular $v=f$:
 &=\lim_{t\to0}\frac1t\bigl[J(u+tv)-J(u)\bigr]\\
 &=\lim_{t\to0}\frac1{2t}\Bigl[
 \int_\Omega a|\nabla(u+tv)|^2\dx
--\int_\Omega fu\dx-t\int_\Omega fv\dx\\
+-\int_\Omega fu\dx-2t\int_\Omega fv\dx\\
 &\hspace{38mm}-\int_\Omega a|\nabla u|^2\dx+\int_\Omega fu\dx\Bigr].
 \end{align*}
 \[
@@ -157,9 +158,9 @@ As $f\in L^2$, in particular $v=f$:
 &=\lim_{t\to0}\frac1{2t}\Bigl[
 \int_\Omega a|\nabla u|^2\dx+2t\int_\Omega a\nabla u\cdot\nabla v\dx
 +t^2\int_\Omega a|\nabla v|^2\dx\\
-&\hspace{38mm}-t\int_\Omega fv\dx-\int_\Omega a|\nabla u|^2\dx\Bigr]\\
+&\hspace{38mm}-2t\int_\Omega fv\dx-\int_\Omega a|\nabla u|^2\dx\Bigr]\\
 &=\int_\Omega a\nabla u\cdot\nabla v\dx-\int_\Omega fv\dx
-+\underbrace{\lim_{t\to0}t\int_\Omega a|\nabla v|^2\dx}_{0}.
++\underbrace{\frac12\lim_{t\to0}t\int_\Omega a|\nabla v|^2\dx}_{0}.
 \end{align*}
 \[
 \int_\Omega a|\nabla v|^2\dx
@@ -194,7 +195,7 @@ $v\in C_c^\infty\subset H_0^1$:
 Gau\ss:
 \[
 \int_{\partial\Omega}\bigl((a\nabla u)v\bigr)\cdot\vec n\ds=0
-\qquad\text{($v=0$ due to $v\in H_0^1$)}.
+\qquad\text{($v=0$ due to $v\in C_c^\infty$)}.
 \]
 \begin{align*}
 0&=\int_\Omega fv\dx+\int_\Omega v\Div(a\nabla u)\dx\\
@@ -229,6 +230,60 @@ Furthermore,
 \[
 u=u_g+w=u_g+u-u_g=u.
 \]
+
+\section*{Exercise 6}
+\[
+-\Div(-\vec b u)=\Div(\vec b u)
+=\vec b\cdot\nabla u+u\Div(\vec b).
+\]
+Thus, the equation is:
+\[
+\vec b\cdot\nabla u+u\Div(\vec b)+cu=f.
+\]
+\[
+\underbrace{\vec b}_{=\vec b'}\cdot\nabla u
++\underbrace{\bigl(\Div(\vec b)+c\bigr)}_{=c'}u
+=\underbrace{f}_{=f'}.
+\]
+\[
+\vec b'\cdot\nabla u=0.
+\]
+Take characteristic segment $x(t)=x_0+t\vec b'$.
+Note that due to the chain rule:
+\[
+\frac{\mathrm d}{\mathrm dt}u(x(t))
+=\nabla u\cdot x'(t)=\nabla u\cdot\vec b',
+\]
+equivalently
+\[
+\frac{\mathrm d}{\mathrm dt}u(x(t))=0.
+\]
+This means along segments in direction $\vec b'$, the solution $u$ is constant.
+
+\begin{center}
+\setlength{\unitlength}{1mm}
+\begin{picture}(130,42)
+\put(40,8){\line(1,0){65}}
+\put(40,32){\line(1,0){65}}
+\put(40,8){\line(0,1){24}}
+\put(105,8){\line(0,1){24}}
+\put(40,8){\vector(1,0){65}}
+\put(40,16){\vector(1,0){65}}
+\put(40,24){\vector(1,0){65}}
+\put(40,32){\vector(1,0){65}}
+\put(0,19){$\Gamma_-$}
+\put(108,19){$\Gamma_+$}
+\put(102,35){$\Omega$}
+\put(56,35){\small characteristic}
+\put(65,2){$\vec b$}
+\end{picture}
+\[
+\Gamma_-=\{x\in\partial\Omega:\vec b'\cdot\vec n(x)<0\}.
+\]
+\end{center}
+Since $u$ is constant along horizontal curves, its value is determined
+by the value that enters the segment (inflow).
+Both the interior and outflow are determined by this.
 
 \section*{Exercise 7}
 \begin{center}
